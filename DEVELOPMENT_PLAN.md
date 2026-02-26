@@ -165,18 +165,18 @@ No magic heights inside JSX.
 
 Tasks:
 
-* [ ] Create App layout wrapper
-* [ ] Implement full-height viewport container
-* [ ] Center content horizontally and vertically using flex
-* [ ] Apply background color from tokens
-* [ ] Add max width constraint from layout config
-* [ ] Remove all hardcoded pixel values
+* [x] Create App layout wrapper
+* [x] Implement full-height viewport container
+* [x] Center content horizontally and vertically using flex
+* [x] Apply background color from tokens
+* [x] Add max width constraint from layout config
+* [x] Remove all hardcoded pixel values
 
 Validation:
 
-* Card is centered on desktop
-* Card is centered on mobile
-* No inline numeric styles
+* [x] Card is centered on desktop
+* [x] Card is centered on mobile
+* [x] No inline numeric styles
 
 ---
 
