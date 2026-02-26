@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { colors, spacing } from "../config/designTokens";
+import { colors, spacing, shadows } from "../config/designTokens";
 import { layout } from "../config/layout";
 import { typography } from "../config/typography";
 
@@ -33,6 +33,10 @@ export function ThemeProvider({ children }: Props) {
         );
       });
     });
+
+    Object.entries(shadows).forEach(([key, value]) => {
+  root.style.setProperty(`--shadow-${key}`, value);
+});
   }, []);
 
   return <>{children}</>;

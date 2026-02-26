@@ -22,3 +22,7 @@ export const spacing = {
   xl: 32,
   xxl: 40,
 };
+
+export const shadows = {
+  card: "0 1px 2px rgba(0, 0, 0, 0.04)",
+};
