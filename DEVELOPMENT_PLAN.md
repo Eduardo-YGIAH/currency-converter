@@ -210,12 +210,12 @@ Text:
 
 Tasks:
 
-* [ ] Implement heading block
-* [ ] Use typography.headingMedium for first line
-* [ ] Use typography.headingLarge for main value
-* [ ] Use textSecondary for timestamp
-* [ ] Extract strings into config/text.ts
-* [ ] Avoid inline font sizes
+* [x] Implement heading block
+* [x] Use typography.headingMedium for first line
+* [x] Use typography.headingLarge for main value
+* [x] Use textSecondary for timestamp
+* [x] Extract strings into config/text.ts
+* [x] Avoid inline font sizes
 
 ---
 
@@ -225,24 +225,24 @@ Two stacked input containers.
 
 Each block:
 
-* Left: amount input
-* Right: select dropdown
-* Vertical divider
-* Rounded border
-* Fixed height from layout.inputHeight
+* [x] Left: amount input
+* [x] Right: select dropdown
+* [x] Vertical divider
+* [x] Rounded border
+* [x] Fixed height from layout.inputHeight
 
 Tasks:
 
 * [ ] Create CurrencyInputRow component
-* [ ] Use flex layout
-* [ ] Divider width from config (e.g., 1px token)
-* [ ] Input height from layout config
-* [ ] No hardcoded widths
-* [ ] Use borderSubtle color
+* [x] Use flex layout
+* [x] Divider width from config (e.g., 1px token)
+* [x] Input height from layout config
+* [x] No hardcoded widths
+* [x] Use borderSubtle color
 
 ---
 
-# 6. Responsive Strategy
+# 6. Responsive Strategy - (Deferred)
 
 Requirements:
 
