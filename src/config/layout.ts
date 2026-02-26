@@ -1,12 +1,16 @@
 export const layout = {
-  cardMaxWidth: 480,
+  cardMaxWidth: 400,
+  cardMinWidth: 375,
   cardBorderRadius: 16,
   cardPadding: 32,
 
-  inputHeight: 64,
-  inputBorderRadius: 12,
+  inputHeight: 46,
+  inputBorderRadius: 8,
+  inputMinWidth: 80,
 
   dividerWidth: 1,
+  dividerHeight: 26,
+
 
   pageHorizontalPadding: 16,
 };

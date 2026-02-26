@@ -27,10 +27,20 @@ export function ThemeProvider({ children }: Props) {
 
     Object.entries(typography).forEach(([key, styles]) => {
       Object.entries(styles).forEach(([styleKey, styleValue]) => {
-        root.style.setProperty(
-          `--typography-${key}-${styleKey}`,
-          typeof styleValue === "number" ? `${styleValue}px` : String(styleValue)
-        );
+        let value: string;
+
+        if (styleKey === "fontSize") {
+          value = `${styleValue}px`;
+        } else if (styleKey === "lineHeight") {
+          value =
+            typeof styleValue === "number" && styleValue > 10
+              ? `${styleValue}px`   // pixel-based line-height
+              : String(styleValue); // unitless multiplier
+        } else {
+          value = String(styleValue); // fontWeight etc
+        }
+
+        root.style.setProperty(`--typography-${key}-${styleKey}`, value);
       });
     });
 

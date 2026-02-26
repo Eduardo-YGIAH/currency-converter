@@ -3,8 +3,9 @@ export const colors = {
   cardBackground: "#ffffff",
 
   textPrimary: "#202124",
-  textSecondary: "#5f6368",
+  textSecondary: "#636363",
   textMuted: "#80868b",
+  textInput: "#474747",
 
   borderSubtle: "#dadce0",
   divider: "#dadce0",

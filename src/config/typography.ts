@@ -1,14 +1,14 @@
 export const typography = {
   titleSmall: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 400,
-    lineHeight: 1.4,
+    lineHeight: 48,
   },
 
   conversionValue: {
     fontSize: 56,
-    fontWeight: 500,
-    lineHeight: 1.1,
+    fontWeight: 400,
+    lineHeight: 1.05,
   },
 
   body: {
@@ -18,7 +18,7 @@ export const typography = {
   },
 
   caption: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 400,
     lineHeight: 1.4,
   },
