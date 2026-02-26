@@ -184,16 +184,16 @@ Validation:
 
 Tasks:
 
-* [ ] Create reusable Card component
-* [ ] Use layout.borderRadius
-* [ ] Use spacing tokens for padding
-* [ ] Use borderSubtle for outline
-* [ ] No magic shadows or arbitrary spacing
+* [x] Create reusable Card component
+* [x] Use layout.borderRadius
+* [x] Use spacing tokens for padding
+* [x] Use borderSubtle for outline
+* [x] No magic shadows or arbitrary spacing
 
 Validation:
 
-* Card width adapts to mobile
-* Max width respected
+* [x] Card width adapts to mobile
+* [x] Max width respected
 
 ---
 
