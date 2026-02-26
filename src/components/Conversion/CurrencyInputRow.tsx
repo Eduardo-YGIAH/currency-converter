@@ -1,11 +1,13 @@
+import type { Currency } from "../../types/currency";
 import styles from "./ConversionLayout.module.css";
 
 type Props = {
   amount: string;
-  currency: string;
+  currency: Currency;
   onAmountChange: (value: string) => void;
-  onCurrencyChange: (value: string) => void;
-  currencies: string[];
+  onCurrencyChange: (value: Currency) => void;
+  currencies: Currency[];
+  readOnly?: boolean;
 };
 
 export function CurrencyInputRow({
@@ -14,6 +16,7 @@ export function CurrencyInputRow({
   onAmountChange,
   onCurrencyChange,
   currencies,
+  readOnly = false,
 }: Props) {
   return (
     <div className={styles.inputRow}>
@@ -21,6 +24,7 @@ export function CurrencyInputRow({
         className={styles.input}
         value={amount}
         onChange={(e) => onAmountChange(e.target.value)}
+        readOnly={readOnly}
       />
 
       <div className={styles.divider} />
@@ -28,7 +32,7 @@ export function CurrencyInputRow({
       <select
         className={styles.select}
         value={currency}
-        onChange={(e) => onCurrencyChange(e.target.value)}
+        onChange={(e) => onCurrencyChange(e.target.value as Currency)}
       >
         {currencies.map((c) => (
           <option key={c} value={c}>

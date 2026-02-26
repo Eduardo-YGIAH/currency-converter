@@ -233,7 +233,7 @@ Each block:
 
 Tasks:
 
-* [ ] Create CurrencyInputRow component
+* [x] Create CurrencyInputRow component
 * [x] Use flex layout
 * [x] Divider width from config (e.g., 1px token)
 * [x] Input height from layout config
