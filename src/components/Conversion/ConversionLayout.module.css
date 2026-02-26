@@ -1,0 +1,81 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: var(--typography-titleSmall-fontSize);
+  font-weight: var(--typography-titleSmall-fontWeight);
+  line-height: var(--typography-titleSmall-lineHeight);
+  color: var(--color-textSecondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.value {
+  font-size: var(--typography-conversionValue-fontSize);
+  font-weight: var(--typography-conversionValue-fontWeight);
+  line-height: var(--typography-conversionValue-lineHeight);
+  color: var(--color-textPrimary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.meta {
+  font-size: var(--typography-caption-fontSize);
+  font-weight: var(--typography-caption-fontWeight);
+  line-height: var(--typography-caption-lineHeight);
+  color: var(--color-textMuted);
+  margin-bottom: var(--spacing-lg);
+}
+
+.inputRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--layout-inputHeight);
+  padding: 0 var(--spacing-lg);
+  border: var(--layout-dividerWidth) solid var(--color-borderSubtle);
+  border-radius: var(--layout-inputBorderRadius);
+  background-color: var(--color-inputBackground);
+  box-sizing: border-box;
+  margin-bottom: var(--spacing-md);
+}
+
+.inputRow:hover {
+  border-color: var(--color-divider);
+}
+
+.divider {
+  position: absolute;
+  left: max(30%, 100px);
+  transform: translateX(-50%);
+  height: var(--layout-dividerHeight);
+  width: var(--layout-dividerWidth);
+  background-color: var(--color-divider);
+}
+
+.input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--typography-body-fontSize);
+  font-weight: var(--typography-body-fontWeight);
+  line-height: var(--typography-body-lineHeight);
+  color: var(--color-textInput);
+  flex: 1;
+  min-width: var(--layout-inputMinWidth);
+}
+
+.select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--typography-body-fontSize);
+  font-weight: var(--typography-body-fontWeight);
+  line-height: var(--typography-body-lineHeight);
+  color: var(--color-textPrimary);
+}
+
+.meta span {
+  cursor: pointer;
+}

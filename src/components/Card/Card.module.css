@@ -1,6 +1,7 @@
 .card {
   width: 100%;
   max-width: var(--layout-cardMaxWidth);
+  min-width: var(--layout-cardMinWidth);
 
   background-color: var(--color-cardBackground);
 
