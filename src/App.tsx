@@ -1,9 +1,12 @@
+import { Card } from "./components/Card/Card";
 import { PageContainer } from "./components/Layout/PageContainer";
 
 function App() {
   return (
     <PageContainer>
-      <div>Currency Converter</div>
+      <Card>
+        <div>Currency Converter</div>
+      </Card>
     </PageContainer>
   );
 }
