@@ -1,0 +1,15 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--color-pageBackground);
+
+  padding-left: var(--layout-pageHorizontalPadding);
+  padding-right: var(--layout-pageHorizontalPadding);
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+
+  box-sizing: border-box;
+}
