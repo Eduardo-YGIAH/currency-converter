@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styles from "./ConversionLayout.module.css";
 import { text } from "../../config/text";
 import { CurrencyInputRow } from "./CurrencyInputRow";
@@ -98,23 +98,31 @@ export function ConversionLayout() {
       ? disclaimerMeta.replace("{timestamp}", formatUtcTimestamp(lastUpdatedAt))
       : disclaimerMeta.replace("{timestamp}", text.timestampUnavailableLabel);
 
-  const handleFromCurrencyChange = (newCurrency: Currency) => {
-    if (newCurrency === resolvedToCurrency) {
-      setToCurrency(resolvedFromCurrency);
-      setFromCurrency(resolvedToCurrency);
-    } else {
-      setFromCurrency(newCurrency);
-    }
-  };
+  const handleFromCurrencyChange = useCallback(
+    (newCurrency: Currency) => {
+      if (newCurrency === resolvedToCurrency) {
+        setToCurrency(resolvedFromCurrency);
+        setFromCurrency(resolvedToCurrency);
+      } else {
+        setFromCurrency(newCurrency);
+      }
+    },
+    [resolvedFromCurrency, resolvedToCurrency],
+  );
 
-  const handleToCurrencyChange = (newCurrency: Currency) => {
-    if (newCurrency === resolvedFromCurrency) {
-      setFromCurrency(resolvedToCurrency);
-      setToCurrency(resolvedFromCurrency);
-    } else {
-      setToCurrency(newCurrency);
-    }
-  };
+  const handleToCurrencyChange = useCallback(
+    (newCurrency: Currency) => {
+      if (newCurrency === resolvedFromCurrency) {
+        setFromCurrency(resolvedToCurrency);
+        setToCurrency(resolvedFromCurrency);
+      } else {
+        setToCurrency(newCurrency);
+      }
+    },
+    [resolvedFromCurrency, resolvedToCurrency],
+  );
+
+  const noopAmountChange = useCallback(() => {}, []);
 
   return (
     <div className={styles.wrapper}>
@@ -142,7 +150,7 @@ export function ConversionLayout() {
       <CurrencyInputRow
         amount={formatted}
         currency={resolvedToCurrency}
-        onAmountChange={() => {}}
+        onAmountChange={noopAmountChange}
         onCurrencyChange={handleToCurrencyChange}
         currencies={currencyOptions}
         amountLabel={text.convertedAmountLabelTemplate.replace(

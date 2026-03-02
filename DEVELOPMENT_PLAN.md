@@ -336,8 +336,8 @@ Strict pass before final:
 
 * [x] Currencies cached
 * [x] Conversion not firing on invalid inputs
-* [ ] Avoid unnecessary rerenders
-* [ ] Memoize heavy components if needed
+* [x] Avoid unnecessary rerenders
+* [x] Memoize heavy components if needed
 
 ---
 

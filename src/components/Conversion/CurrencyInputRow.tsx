@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { memo, useId, useMemo } from "react";
 import type { Currency, CurrencySelectOption } from "../../types/currency";
 import styles from "./ConversionLayout.module.css";
 
@@ -14,7 +14,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export function CurrencyInputRow({
+function CurrencyInputRowComponent({
   amount,
   currency,
   onAmountChange,
@@ -27,6 +27,15 @@ export function CurrencyInputRow({
 }: Props) {
   const amountInputId = useId();
   const currencySelectId = useId();
+  const options = useMemo(
+    () =>
+      currencies.map((currencyOption) => (
+        <option key={currencyOption.value} value={currencyOption.value}>
+          {currencyOption.label}
+        </option>
+      )),
+    [currencies],
+  );
 
   return (
     <div className={styles.inputRow}>
@@ -55,12 +64,10 @@ export function CurrencyInputRow({
         onChange={(e) => onCurrencyChange(e.target.value as Currency)}
         disabled={disabled}
       >
-        {currencies.map((currencyOption) => (
-          <option key={currencyOption.value} value={currencyOption.value}>
-            {currencyOption.label}
-          </option>
-        ))}
+        {options}
       </select>
     </div>
   );
 }
+
+export const CurrencyInputRow = memo(CurrencyInputRowComponent);
