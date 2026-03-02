@@ -242,31 +242,42 @@ Tasks:
 
 ---
 
-# 6. Responsive Strategy - (Deferred)
+# 6. Responsive Strategy (Google-Parity Mobile First)
 
 Requirements:
 
 * Mobile first
-* Card width: 100% minus spacing padding
-* Desktop: max width constraint
+* Must render correctly on 320px viewport without horizontal overflow
+* Preserve Google converter proportions and spacing hierarchy
+* Card width: fill available space between page paddings on small screens
+* Desktop: centered card with max width constraint
 
 Tasks:
 
-* [ ] Use CSS clamp or media queries
-* [ ] No magic breakpoints
-* [ ] Breakpoints defined in config
+* [ ] Remove fixed `cardMinWidth` behaviour that blocks 320px layouts
+* [ ] Keep card at `width: 100%` and rely on container padding + `cardMaxWidth`
+* [ ] Use media queries only where Google parity requires layout scaling
+* [ ] Keep all breakpoints tokenized in `config/layout.ts` (no inline values)
+* [ ] Verify typography scales/line breaks remain visually consistent at 320px
+* [ ] Ensure long currency names do not cause horizontal overflow at 320px
+* [ ] Keep select clipping behaviour aligned with Google (no ellipsis glyph)
 
 config/layout.ts:
 
 export const breakpoints = {
+xs: 320,
 sm: 480,
 md: 768,
+lg: 1024,
 }
 
 Validation:
 
-* Works on 320px width
-* Looks centered on 1440px
+* [ ] No horizontal scrolling at 320px viewport
+* [ ] Card remains centered and visually balanced on 320px
+* [ ] Title/value/meta hierarchy remains readable on 320px
+* [ ] Input rows keep alignment and tap-target usability on 320px
+* [ ] Looks centered on 1440px
 
 ---
 
