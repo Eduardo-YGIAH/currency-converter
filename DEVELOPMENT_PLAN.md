@@ -354,11 +354,11 @@ Strict pass before final:
 
 ## API and Query State
 
-* [ ] Loading state appears while fetching currencies
-* [ ] Loading state appears while fetching conversion
-* [ ] Error state is shown when currencies request fails
-* [ ] Error state is shown when conversion request fails
-* [ ] Dynamic timestamp updates from latest successful query
+* [x] Loading state appears while fetching currencies
+* [x] Loading state appears while fetching conversion
+* [x] Error state is shown when currencies request fails
+* [x] Error state is shown when conversion request fails
+* [x] Dynamic timestamp updates from latest successful query
 
 ## Performance and Cache
 

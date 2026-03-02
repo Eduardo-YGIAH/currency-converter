@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ConversionLayout } from "./ConversionLayout";
 import { useConversionQuery, useCurrenciesQuery } from "../../features/currency/hooks";
+import { text } from "../../config/text";
+import { formatUtcTimestamp } from "../../utils/formatUtcTimestamp";
 
 vi.mock("../../features/currency/hooks", () => ({
   useCurrenciesQuery: vi.fn(),
@@ -123,5 +125,137 @@ describe("ConversionLayout functional behaviour", () => {
       const lastCallArgs = mockedUseConversionQuery.mock.lastCall?.[0];
       expect(lastCallArgs?.enabled).toBe(false);
     });
+  });
+});
+
+describe("ConversionLayout API and query state", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    setupQueries();
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("shows loading state while fetching currencies", () => {
+    mockedUseCurrenciesQuery.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      isError: false,
+      dataUpdatedAt: 0,
+    } as never);
+
+    mockedUseConversionQuery.mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: false,
+      dataUpdatedAt: 0,
+    } as never);
+
+    render(<ConversionLayout />);
+
+    expect(screen.getByText(text.loadingRatesLabel)).toBeInTheDocument();
+    expect(screen.getAllByRole("combobox")[0]).toBeDisabled();
+  });
+
+  it("shows loading state while fetching conversion", () => {
+    mockedUseCurrenciesQuery.mockReturnValue({
+      data: defaultCurrencies,
+      isLoading: false,
+      isError: false,
+      dataUpdatedAt: 1_772_444_749_000,
+    } as never);
+
+    mockedUseConversionQuery.mockReturnValue({
+      data: undefined,
+      isFetching: true,
+      isError: false,
+      dataUpdatedAt: 0,
+    } as never);
+
+    render(<ConversionLayout />);
+
+    expect(screen.getByText(text.loadingRatesLabel)).toBeInTheDocument();
+  });
+
+  it("shows error state when currencies request fails", () => {
+    mockedUseCurrenciesQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      dataUpdatedAt: 0,
+    } as never);
+
+    mockedUseConversionQuery.mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: false,
+      dataUpdatedAt: 0,
+    } as never);
+
+    render(<ConversionLayout />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent(text.ratesFetchErrorLabel);
+  });
+
+  it("shows error state when conversion request fails", () => {
+    mockedUseCurrenciesQuery.mockReturnValue({
+      data: defaultCurrencies,
+      isLoading: false,
+      isError: false,
+      dataUpdatedAt: 1_772_444_749_000,
+    } as never);
+
+    mockedUseConversionQuery.mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: true,
+      dataUpdatedAt: 0,
+    } as never);
+
+    render(<ConversionLayout />);
+
+    expect(screen.getByRole("alert")).toHaveTextContent(text.ratesFetchErrorLabel);
+  });
+
+  it("updates timestamp using latest successful query timestamp", () => {
+    const currenciesTimestamp = 1_772_444_749_000;
+    let conversionTimestamp = 1_772_444_749_000;
+
+    mockedUseCurrenciesQuery.mockImplementation(
+      () =>
+        ({
+          data: defaultCurrencies,
+          isLoading: false,
+          isError: false,
+          dataUpdatedAt: currenciesTimestamp,
+        }) as never,
+    );
+
+    mockedUseConversionQuery.mockImplementation(
+      ({ amount }) =>
+        ({
+          data: amount * (conversionRates.GBP_EUR ?? 1),
+          isFetching: false,
+          isError: false,
+          dataUpdatedAt: conversionTimestamp,
+        }) as never,
+    );
+
+    const { rerender } = render(<ConversionLayout />);
+
+    const firstExpectedMeta = text.metaTemplate
+      .replace("{timestamp}", formatUtcTimestamp(conversionTimestamp))
+      .replace("{disclaimer}", text.disclaimerLabel);
+    expect(screen.getByText(firstExpectedMeta)).toBeInTheDocument();
+
+    conversionTimestamp = 1_772_450_000_000;
+    rerender(<ConversionLayout />);
+
+    const secondExpectedMeta = text.metaTemplate
+      .replace("{timestamp}", formatUtcTimestamp(conversionTimestamp))
+      .replace("{disclaimer}", text.disclaimerLabel);
+    expect(screen.getByText(secondExpectedMeta)).toBeInTheDocument();
   });
 });
