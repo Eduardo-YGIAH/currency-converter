@@ -396,24 +396,24 @@ Strict pass before final:
 
 # 13. Final Visual Parity Checklist
 
-* [ ] Title hierarchy matches Google currency converter
-* [ ] Secondary text smaller and muted
-* [ ] Input rows stacked
-* [ ] Divider visible
-* [ ] Rounded borders correct
-* [ ] Card visually balanced
-* [ ] Spacing proportional
-* [ ] Mobile layout clean
-* [ ] No overflow issues
+* [x] Title hierarchy matches Google currency converter
+* [x] Secondary text smaller and muted
+* [x] Input rows stacked
+* [x] Divider visible
+* [x] Rounded borders correct
+* [x] Card visually balanced
+* [x] Spacing proportional
+* [x] Mobile layout clean
+* [x] No overflow issues
 
 ---
 
 # 14. Definition of Done
 
-* [ ] Pixel structure visually close to Google currency converter
-* [ ] Fully responsive
-* [ ] All UI tokens centralized
-* [ ] Clean component structure
+* [x] Pixel structure visually close to Google currency converter
+* [x] Fully responsive
+* [x] All UI tokens centralized
+* [x] Clean component structure
 * [x] API integration working
-* [ ] Code readable and maintainable
-* [ ] Clear commit history
+* [x] Code readable and maintainable
+* [x] Clear commit history
