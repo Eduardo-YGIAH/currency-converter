@@ -87,11 +87,16 @@ export function ConversionLayout() {
   const lastUpdatedAt =
     conversionQuery.dataUpdatedAt || currenciesQuery.dataUpdatedAt;
 
+  const disclaimerMeta = text.metaTemplate.replace(
+    "{disclaimer}",
+    text.disclaimerLabel,
+  );
+
   const meta = isLoading
-    ? "Loading latest rates..."
+    ? text.loadingRatesLabel
     : lastUpdatedAt > 0
-      ? `${formatUtcTimestamp(lastUpdatedAt)} · ${text.disclaimerLabel}`
-      : `Rate timestamp unavailable · ${text.disclaimerLabel}`;
+      ? disclaimerMeta.replace("{timestamp}", formatUtcTimestamp(lastUpdatedAt))
+      : disclaimerMeta.replace("{timestamp}", text.timestampUnavailableLabel);
 
   const handleFromCurrencyChange = (newCurrency: Currency) => {
     if (newCurrency === resolvedToCurrency) {
@@ -119,7 +124,9 @@ export function ConversionLayout() {
         {formatted} {resolvedToLabel}
       </div>
 
-      <div className={styles.meta}>{meta}</div>
+      <div className={styles.meta} aria-live="polite">
+        {meta}
+      </div>
 
       <CurrencyInputRow
         amount={fromAmount}
@@ -127,6 +134,8 @@ export function ConversionLayout() {
         onAmountChange={setFromAmount}
         onCurrencyChange={handleFromCurrencyChange}
         currencies={currencyOptions}
+        amountLabel={text.amountLabelTemplate.replace("{currency}", resolvedFromLabel)}
+        currencyLabel={text.fromCurrencyLabel}
         disabled={currenciesQuery.isLoading}
       />
 
@@ -136,12 +145,19 @@ export function ConversionLayout() {
         onAmountChange={() => {}}
         onCurrencyChange={handleToCurrencyChange}
         currencies={currencyOptions}
+        amountLabel={text.convertedAmountLabelTemplate.replace(
+          "{currency}",
+          resolvedToLabel,
+        )}
+        currencyLabel={text.toCurrencyLabel}
         readOnly
         disabled={currenciesQuery.isLoading}
       />
 
       {hasAnyError ? (
-        <div className={styles.meta}>Unable to fetch latest rates.</div>
+        <div className={styles.meta} role="alert">
+          {text.ratesFetchErrorLabel}
+        </div>
       ) : null}
     </div>
   );

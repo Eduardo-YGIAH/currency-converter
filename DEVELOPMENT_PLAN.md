@@ -308,11 +308,11 @@ Tasks:
 
 Tasks:
 
-* [ ] Label inputs properly
-* [ ] Ensure focus states visible
-* [ ] Ensure contrast meets WCAG
-* [ ] Keyboard navigable dropdown
-* [ ] ARIA where necessary
+* [x] Label inputs properly
+* [x] Ensure focus states visible
+* [x] Ensure contrast meets WCAG
+* [x] Keyboard navigable dropdown
+* [x] ARIA where necessary
 
 ---
 

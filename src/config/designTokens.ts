@@ -4,6 +4,7 @@ export const colors = {
 
   textPrimary: "#202124",
   textSecondary: "#636363",
+  // Google parity: keept #80868b for meta text. WCAG-stronger alternative would be #5f6368.
   textMuted: "#80868b",
   textInput: "#474747",
 
