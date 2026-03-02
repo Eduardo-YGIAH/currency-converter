@@ -345,13 +345,12 @@ Strict pass before final:
 
 ## Functional Behaviour
 
-* [ ] Card renders centered (desktop and mobile)
-* [ ] Currency dropdown populates from API data
-* [ ] Conversion updates on amount change
-* [ ] Conversion updates on from-currency change
-* [ ] Conversion updates on to-currency change
-* [ ] Same-currency conversion returns input amount
-* [ ] Invalid input does not trigger conversion
+* [x] Currency dropdown populates from API data
+* [x] Conversion updates on amount change
+* [x] Conversion updates on from-currency change
+* [x] Conversion updates on to-currency change
+* [x] Same-currency conversion returns input amount
+* [x] Invalid input does not trigger conversion
 
 ## API and Query State
 
