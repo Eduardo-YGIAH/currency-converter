@@ -1,13 +1,20 @@
 .card {
   width: 100%;
   max-width: var(--layout-cardMaxWidth);
-  min-width: var(--layout-cardMinWidth);
 
   background-color: var(--color-cardBackground);
 
   border-radius: var(--layout-cardBorderRadius);
 
-  padding: var(--layout-cardPadding);
+  padding-block: clamp(
+    var(--layout-cardPaddingMobile),
+    6vw,
+    var(--layout-cardPadding)
+  );
+  padding-inline: max(
+    var(--layout-cardMinHorizontalPadding),
+    clamp(var(--layout-cardPaddingMobile), 6vw, var(--layout-cardPadding))
+  );
 
   border: var(--layout-cardBorderWidth) solid var(--color-borderSubtle);
 

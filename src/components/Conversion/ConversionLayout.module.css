@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .title {
@@ -17,6 +18,7 @@
   line-height: var(--typography-conversionValue-lineHeight);
   color: var(--color-textPrimary);
   margin-bottom: var(--spacing-sm);
+  overflow-wrap: anywhere;
 }
 
 .meta {

@@ -254,13 +254,13 @@ Requirements:
 
 Tasks:
 
-* [ ] Remove fixed `cardMinWidth` behaviour that blocks 320px layouts
-* [ ] Keep card at `width: 100%` and rely on container padding + `cardMaxWidth`
-* [ ] Use media queries only where Google parity requires layout scaling
-* [ ] Keep all breakpoints tokenized in `config/layout.ts` (no inline values)
-* [ ] Verify typography scales/line breaks remain visually consistent at 320px
-* [ ] Ensure long currency names do not cause horizontal overflow at 320px
-* [ ] Keep select clipping behaviour aligned with Google (no ellipsis glyph)
+* [x] Remove fixed `cardMinWidth` behaviour that blocks 320px layouts
+* [x] Keep card at `width: 100%` and rely on container padding + `cardMaxWidth`
+* [x] Use media queries only where Google parity requires layout scaling
+* [x] Keep all breakpoints tokenized in `config/layout.ts` (no inline values)
+* [x] Verify typography scales/line breaks remain visually consistent at 320px
+* [x] Ensure long currency names do not cause horizontal overflow at 320px
+* [x] Keep select clipping behaviour aligned with Google (no ellipsis glyph)
 
 config/layout.ts:
 
@@ -273,11 +273,11 @@ lg: 1024,
 
 Validation:
 
-* [ ] No horizontal scrolling at 320px viewport
-* [ ] Card remains centered and visually balanced on 320px
-* [ ] Title/value/meta hierarchy remains readable on 320px
-* [ ] Input rows keep alignment and tap-target usability on 320px
-* [ ] Looks centered on 1440px
+* [x] No horizontal scrolling at 320px viewport
+* [x] Card remains centered and visually balanced on 320px
+* [x] Title/value/meta hierarchy remains readable on 320px
+* [x] Input rows keep alignment and tap-target usability on 320px
+* [x] Looks centered on 1440px
 
 ---
 

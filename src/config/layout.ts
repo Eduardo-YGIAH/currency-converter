@@ -1,8 +1,9 @@
 export const layout = {
   cardMaxWidth: 400,
-  cardMinWidth: 375,
   cardBorderRadius: 16,
   cardBorderWidth: 1,
+  cardMinHorizontalPadding: 5,
+  cardPaddingMobile: 20,
   cardPadding: 32,
 
   inputHeight: 46,
@@ -17,11 +18,11 @@ export const layout = {
   srOnlySize: 1,
   srOnlyOffset: -1,
 
-
   pageHorizontalPadding: 16,
 };
 
 export const breakpoints = {
+  xs: 320,
   sm: 480,
   md: 768,
   lg: 1024,
