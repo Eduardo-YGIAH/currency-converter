@@ -34,6 +34,13 @@ A Google-style currency converter built with React + TypeScript.
 
 ## Run Locally
 
+Set your CurrencyBeacon token in `.env.local`:
+
+```bash
+VITE_CURRENCYBEACON_API_KEY=your_api_key_here
+```
+
 ```bash
 npm install
+cp .env.example .env.local
 npm run dev

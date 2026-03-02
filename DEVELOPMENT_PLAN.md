@@ -274,19 +274,19 @@ Validation:
 
 Tasks:
 
-* [ ] Register API key
-* [ ] Create axios instance
-* [ ] Create fetchCurrencies
-* [ ] Create convertCurrency
-* [ ] Add React Query integration
-* [ ] Cache currencies for 1 hour
-* [ ] Disable conversion until valid inputs
+* [x] Register API key
+* [x] Create axios instance
+* [x] Create fetchCurrencies
+* [x] Create convertCurrency
+* [x] Add React Query integration
+* [x] Cache currencies for 1 hour
+* [x] Disable conversion until valid inputs
 
 Validation:
 
-* Currencies populate dropdown
-* Changing amount triggers conversion
-* No duplicate API calls
+* [x] Currencies populate dropdown
+* [x] Changing amount triggers conversion
+* [x] No duplicate API calls
 
 ---
 
@@ -294,12 +294,12 @@ Validation:
 
 Tasks:
 
-* [ ] Add controlled input for amount
-* [ ] Add controlled select for from
-* [ ] Add controlled select for to
-* [ ] Derive conversion result from hook
+* [x] Add controlled input for amount
+* [x] Add controlled select for from
+* [x] Add controlled select for to
+* [x] Derive conversion result from hook
 * [ ] Display loading state
-* [ ] Display error state
+* [x] Display error state
 
 ---
 
@@ -333,8 +333,8 @@ Strict pass before final:
 
 # 11. Performance Review
 
-* [ ] Currencies cached
-* [ ] Conversion not firing on invalid inputs
+* [x] Currencies cached
+* [x] Conversion not firing on invalid inputs
 * [ ] Avoid unnecessary rerenders
 * [ ] Memoize heavy components if needed
 
@@ -370,6 +370,6 @@ Strict pass before final:
 * [ ] Fully responsive
 * [ ] All UI tokens centralized
 * [ ] Clean component structure
-* [ ] API integration working
+* [x] API integration working
 * [ ] Code readable and maintainable
 * [ ] Clear commit history

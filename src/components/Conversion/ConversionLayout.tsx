@@ -1,64 +1,101 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "./ConversionLayout.module.css";
 import { text } from "../../config/text";
 import { CurrencyInputRow } from "./CurrencyInputRow";
-import { convert } from "../../utils/convert";
-import { STATIC_RATES } from "../../config/rates";
-import type { Currency } from "../../types/currency";
+import type { Currency, CurrencySelectOption } from "../../types/currency";
 import { formatAmount } from "../../utils/formatAmount";
+import { useConversionQuery, useCurrenciesQuery } from "../../features/currency/hooks";
 
 export function ConversionLayout() {
   const [fromAmount, setFromAmount] = useState(text.defaultAmount);
 
   const [fromCurrency, setFromCurrency] = useState<Currency>(
-    text.defaultFromCurrency as Currency,
+    text.defaultFromCurrencyCode,
   );
   const [toCurrency, setToCurrency] = useState<Currency>(
-    text.defaultToCurrency as Currency,
+    text.defaultToCurrencyCode,
   );
 
-  const rate = STATIC_RATES[fromCurrency]?.[toCurrency] ?? 0;
+  const currenciesQuery = useCurrenciesQuery();
 
-  const numericFrom = parseFloat(fromAmount);
+  const currencyOptions = useMemo<CurrencySelectOption[]>(
+    () =>
+      currenciesQuery.data?.map(({ code, name }) => ({ value: code, label: name })) ?? [
+        {
+          value: text.defaultFromCurrencyCode,
+          label: text.defaultFromCurrencyLabel,
+        },
+        {
+          value: text.defaultToCurrencyCode,
+          label: text.defaultToCurrencyLabel,
+        },
+      ],
+    [currenciesQuery.data],
+  );
 
-  let converted = 0;
+  const availableCurrencies = useMemo(
+    () => currencyOptions.map(({ value }) => value),
+    [currencyOptions],
+  );
 
-  if (Number.isFinite(numericFrom)) {
-    if (fromCurrency === toCurrency) {
-      converted = numericFrom;
-    } else {
-      converted = convert(numericFrom, rate);
-    }
-  }
+  const currencyLabelsByCode = useMemo(
+    () => new Map(currencyOptions.map(({ value, label }) => [value, label])),
+    [currencyOptions],
+  );
+
+  const resolvedFromCurrency = availableCurrencies.includes(fromCurrency)
+    ? fromCurrency
+    : (availableCurrencies[0] ?? text.defaultFromCurrencyCode);
+
+  const resolvedToCurrency = availableCurrencies.includes(toCurrency)
+    ? toCurrency
+    : (availableCurrencies.find((code) => code !== resolvedFromCurrency) ??
+      resolvedFromCurrency);
+
+  const resolvedFromLabel =
+    currencyLabelsByCode.get(resolvedFromCurrency) ?? resolvedFromCurrency;
+  const resolvedToLabel =
+    currencyLabelsByCode.get(resolvedToCurrency) ?? resolvedToCurrency;
+
+  const numericFrom = Number(fromAmount);
+  const hasValidAmount = fromAmount.trim() !== "" && Number.isFinite(numericFrom);
+  const shouldConvert =
+    hasValidAmount && resolvedFromCurrency !== resolvedToCurrency;
+
+  const conversionQuery = useConversionQuery({
+    amount: numericFrom,
+    from: resolvedFromCurrency,
+    to: resolvedToCurrency,
+    enabled: shouldConvert,
+  });
+
+  const converted = hasValidAmount
+    ? resolvedFromCurrency === resolvedToCurrency
+      ? numericFrom
+      : (conversionQuery.data ?? 0)
+    : 0;
 
   const formatted = formatAmount(converted);
 
-  // TODO(phase-5): Replace hardcoded currency list with data from /v1/currencies API
-  const availableCurrencies = [
-    text.defaultFromCurrency,
-    text.defaultToCurrency,
-  ] as Currency[];
-
   const title = text.titleTemplate
     .replace("{amount}", fromAmount)
-    .replace("{from}", fromCurrency);
+    .replace("{from}", resolvedFromLabel);
 
-  // TODO(phase-4): Replace static timestamp with dynamic UTC formatter using text.timestampFormat
   const meta = `26 Feb, 09:32 UTC · ${text.disclaimerLabel}`;
 
   const handleFromCurrencyChange = (newCurrency: Currency) => {
-    if (newCurrency === toCurrency) {
-      setToCurrency(fromCurrency);
-      setFromCurrency(toCurrency);
+    if (newCurrency === resolvedToCurrency) {
+      setToCurrency(resolvedFromCurrency);
+      setFromCurrency(resolvedToCurrency);
     } else {
       setFromCurrency(newCurrency);
     }
   };
 
   const handleToCurrencyChange = (newCurrency: Currency) => {
-    if (newCurrency === fromCurrency) {
-      setFromCurrency(toCurrency);
-      setToCurrency(fromCurrency);
+    if (newCurrency === resolvedFromCurrency) {
+      setFromCurrency(resolvedToCurrency);
+      setToCurrency(resolvedFromCurrency);
     } else {
       setToCurrency(newCurrency);
     }
@@ -69,27 +106,33 @@ export function ConversionLayout() {
       <h2 className={styles.title}>{title}</h2>
 
       <div className={styles.value}>
-        {formatted} {toCurrency}
+        {formatted} {resolvedToLabel}
       </div>
 
       <div className={styles.meta}>{meta}</div>
 
       <CurrencyInputRow
         amount={fromAmount}
-        currency={fromCurrency}
+        currency={resolvedFromCurrency}
         onAmountChange={setFromAmount}
         onCurrencyChange={handleFromCurrencyChange}
-        currencies={availableCurrencies}
+        currencies={currencyOptions}
+        disabled={currenciesQuery.isLoading}
       />
 
       <CurrencyInputRow
         amount={formatted}
-        currency={toCurrency}
+        currency={resolvedToCurrency}
         onAmountChange={() => {}}
         onCurrencyChange={handleToCurrencyChange}
-        currencies={availableCurrencies}
+        currencies={currencyOptions}
         readOnly
+        disabled={currenciesQuery.isLoading}
       />
+
+      {currenciesQuery.isError || conversionQuery.isError ? (
+        <div className={styles.meta}>Unable to fetch latest rates.</div>
+      ) : null}
     </div>
   );
 }

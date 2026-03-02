@@ -74,6 +74,15 @@
   font-weight: var(--typography-body-fontWeight);
   line-height: var(--typography-body-lineHeight);
   color: var(--color-textPrimary);
+  margin-left: auto;
+  min-width: 0;
+  max-width: 45%;
+  width: 45%;
+  text-align: right;
+  text-align-last: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .meta span {
