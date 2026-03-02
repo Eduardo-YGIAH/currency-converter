@@ -343,11 +343,44 @@ Strict pass before final:
 
 # 12. Testing Plan
 
-* [ ] Card renders centered
-* [ ] Currency dropdown populates
-* [ ] Conversion updates on input change
-* [ ] Loading state appears
-* [ ] Error state handled
+## Functional Behaviour
+
+* [ ] Card renders centered (desktop and mobile)
+* [ ] Currency dropdown populates from API data
+* [ ] Conversion updates on amount change
+* [ ] Conversion updates on from-currency change
+* [ ] Conversion updates on to-currency change
+* [ ] Same-currency conversion returns input amount
+* [ ] Invalid input does not trigger conversion
+
+## API and Query State
+
+* [ ] Loading state appears while fetching currencies
+* [ ] Loading state appears while fetching conversion
+* [ ] Error state is shown when currencies request fails
+* [ ] Error state is shown when conversion request fails
+* [ ] Dynamic timestamp updates from latest successful query
+
+## Performance and Cache
+
+* [ ] Currencies query is cached for 1 hour
+* [ ] Repeating same conversion within cache window does not refetch
+* [ ] Conversion is disabled until valid inputs are present
+
+## UI Parity and Layout Stability
+
+* [ ] Title/value/meta hierarchy visually matches Google pattern
+* [ ] Long conversion labels do not break layout unexpectedly
+* [ ] Input rows do not overflow on long currency names
+* [ ] Select text uses available space before clipping
+
+## Accessibility
+
+* [ ] Amount and currency controls have associated labels
+* [ ] Focus state is clearly visible for keyboard navigation
+* [ ] Dropdowns are keyboard navigable
+* [ ] Meta updates are announced politely (aria-live)
+* [ ] Error message is announced as alert role
 
 ---
 
