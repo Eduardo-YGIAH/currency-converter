@@ -259,3 +259,73 @@ describe("ConversionLayout API and query state", () => {
     expect(screen.getByText(secondExpectedMeta)).toBeInTheDocument();
   });
 });
+
+describe("ConversionLayout UI parity and layout stability", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    setupQueries();
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("keeps title, value, and meta in the expected visual hierarchy order", () => {
+    const { container } = render(<ConversionLayout />);
+
+    const wrapper = container.firstElementChild as HTMLElement;
+    const title = wrapper.querySelector("h2");
+    const value = wrapper.querySelector("[class*='value']");
+    const meta = wrapper.querySelector("[aria-live='polite']");
+
+    expect(title).toBeTruthy();
+    expect(value).toBeTruthy();
+    expect(meta).toBeTruthy();
+
+    const titleBeforeValue = title?.compareDocumentPosition(value as Node);
+    const valueBeforeMeta = value?.compareDocumentPosition(meta as Node);
+
+    expect(titleBeforeValue).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(valueBeforeMeta).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
+  it("renders long conversion labels without breaking core converter structure", async () => {
+    const user = userEvent.setup();
+
+    setupQueries([
+      { code: "GBP", name: "Pound sterling" },
+      { code: "EUR", name: "Euro" },
+      { code: "CLF", name: "Chilean Unit of Account (UF)" },
+    ]);
+    conversionRates.GBP_CLF = 0.03;
+
+    render(<ConversionLayout />);
+
+    await user.selectOptions(screen.getAllByRole("combobox")[1], "CLF");
+
+    expect(screen.getByText("0.03 Chilean Unit of Account (UF)")).toBeInTheDocument();
+    expect(screen.getAllByRole("combobox")).toHaveLength(2);
+    expect(screen.getAllByRole("textbox")).toHaveLength(2);
+  });
+
+  it("keeps full selected label text in DOM for native clipping behavior", async () => {
+    const user = userEvent.setup();
+
+    setupQueries([
+      { code: "GBP", name: "Pound sterling" },
+      { code: "EUR", name: "Euro" },
+      { code: "BAM", name: "Bosnia-Herzegovina Convertible Marka" },
+    ]);
+    conversionRates.GBP_BAM = 2;
+
+    render(<ConversionLayout />);
+    await user.selectOptions(screen.getAllByRole("combobox")[1], "BAM");
+
+    const toSelect = screen.getAllByRole("combobox")[1] as HTMLSelectElement;
+    expect(toSelect.value).toBe("BAM");
+    expect(toSelect.selectedOptions[0].textContent).toBe(
+      "Bosnia-Herzegovina Convertible Marka",
+    );
+    expect(toSelect.selectedOptions[0].textContent).not.toContain("...");
+  });
+});

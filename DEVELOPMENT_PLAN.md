@@ -368,10 +368,10 @@ Strict pass before final:
 
 ## UI Parity and Layout Stability
 
-* [ ] Title/value/meta hierarchy visually matches Google pattern
-* [ ] Long conversion labels do not break layout unexpectedly
-* [ ] Input rows do not overflow on long currency names
-* [ ] Select text uses available space before clipping
+* [x] Title/value/meta hierarchy visually matches Google pattern
+* [x] Long conversion labels do not break layout unexpectedly
+* [x] Input rows do not overflow on long currency names
+* [x] Select text uses available space before clipping
 
 ## Accessibility
 
