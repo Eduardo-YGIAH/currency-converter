@@ -6,7 +6,7 @@ export const typography = {
   },
 
   conversionValue: {
-    fontSize: 56,
+    fontSize: 36,
     fontWeight: 400,
     lineHeight: 1.05,
   },

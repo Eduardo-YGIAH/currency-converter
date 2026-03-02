@@ -13,7 +13,11 @@
   );
   padding-inline: max(
     var(--layout-cardMinHorizontalPadding),
-    clamp(var(--layout-cardPaddingMobile), 6vw, var(--layout-cardPadding))
+    clamp(
+      var(--layout-cardMinHorizontalPadding),
+      4vw,
+      var(--layout-cardPadding)
+    )
   );
 
   border: var(--layout-cardBorderWidth) solid var(--color-borderSubtle);
