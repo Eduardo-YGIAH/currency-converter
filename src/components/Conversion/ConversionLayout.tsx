@@ -4,6 +4,7 @@ import { text } from "../../config/text";
 import { CurrencyInputRow } from "./CurrencyInputRow";
 import type { Currency, CurrencySelectOption } from "../../types/currency";
 import { formatAmount } from "../../utils/formatAmount";
+import { formatUtcTimestamp } from "../../utils/formatUtcTimestamp";
 import { useConversionQuery, useCurrenciesQuery } from "../../features/currency/hooks";
 
 export function ConversionLayout() {
@@ -81,7 +82,16 @@ export function ConversionLayout() {
     .replace("{amount}", fromAmount)
     .replace("{from}", resolvedFromLabel);
 
-  const meta = `26 Feb, 09:32 UTC · ${text.disclaimerLabel}`;
+  const isLoading = currenciesQuery.isLoading || conversionQuery.isFetching;
+  const hasAnyError = currenciesQuery.isError || conversionQuery.isError;
+  const lastUpdatedAt =
+    conversionQuery.dataUpdatedAt || currenciesQuery.dataUpdatedAt;
+
+  const meta = isLoading
+    ? "Loading latest rates..."
+    : lastUpdatedAt > 0
+      ? `${formatUtcTimestamp(lastUpdatedAt)} · ${text.disclaimerLabel}`
+      : `Rate timestamp unavailable · ${text.disclaimerLabel}`;
 
   const handleFromCurrencyChange = (newCurrency: Currency) => {
     if (newCurrency === resolvedToCurrency) {
@@ -130,7 +140,7 @@ export function ConversionLayout() {
         disabled={currenciesQuery.isLoading}
       />
 
-      {currenciesQuery.isError || conversionQuery.isError ? (
+      {hasAnyError ? (
         <div className={styles.meta}>Unable to fetch latest rates.</div>
       ) : null}
     </div>

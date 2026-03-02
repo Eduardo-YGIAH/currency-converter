@@ -298,8 +298,9 @@ Tasks:
 * [x] Add controlled select for from
 * [x] Add controlled select for to
 * [x] Derive conversion result from hook
-* [ ] Display loading state
+* [x] Display loading state
 * [x] Display error state
+* [x] Replace static timestamp with dynamic UTC timestamp
 
 ---
 
