@@ -2,6 +2,7 @@ export const layout = {
   cardMaxWidth: 400,
   cardMinWidth: 375,
   cardBorderRadius: 16,
+  cardBorderWidth: 1,
   cardPadding: 32,
 
   inputHeight: 46,
@@ -10,6 +11,11 @@ export const layout = {
 
   dividerWidth: 1,
   dividerHeight: 26,
+  dividerLeftMin: 100,
+  dividerLeftPercent: "30%",
+  focusOutlineWidth: 1,
+  srOnlySize: 1,
+  srOnlyOffset: -1,
 
 
   pageHorizontalPadding: 16,

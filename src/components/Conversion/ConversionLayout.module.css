@@ -47,12 +47,12 @@
 
 .inputRow:focus-within {
   border-color: var(--color-focusOutline);
-  box-shadow: 0 0 0 1px var(--color-focusOutline);
+  box-shadow: 0 0 0 var(--layout-focusOutlineWidth) var(--color-focusOutline);
 }
 
 .divider {
   position: absolute;
-  left: max(30%, 100px);
+  left: max(var(--layout-dividerLeftPercent), var(--layout-dividerLeftMin));
   transform: translateX(-50%);
   height: var(--layout-dividerHeight);
   width: var(--layout-dividerWidth);
@@ -100,10 +100,10 @@
 
 .srOnly {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--layout-srOnlySize);
+  height: var(--layout-srOnlySize);
   padding: 0;
-  margin: -1px;
+  margin: var(--layout-srOnlyOffset);
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

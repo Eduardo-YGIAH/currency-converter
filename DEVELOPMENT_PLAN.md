@@ -320,15 +320,15 @@ Tasks:
 
 Strict pass before final:
 
-* [ ] No inline numeric padding
-* [ ] No inline font sizes
-* [ ] No hardcoded hex colors
-* [ ] No hardcoded border radius
-* [ ] No hardcoded breakpoints
-* [ ] No hardcoded heights
-* [ ] All spacing from spacing tokens
-* [ ] All typography from typography tokens
-* [ ] All colors from colors config
+* [x] No inline numeric padding
+* [x] No inline font sizes
+* [x] No hardcoded hex colors
+* [x] No hardcoded border radius
+* [x] No hardcoded breakpoints
+* [x] No hardcoded heights
+* [x] All spacing from spacing tokens
+* [x] All typography from typography tokens
+* [x] All colors from colors config
 
 ---
 

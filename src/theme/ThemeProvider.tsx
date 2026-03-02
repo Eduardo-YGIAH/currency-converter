@@ -22,6 +22,8 @@ export function ThemeProvider({ children }: Props) {
     Object.entries(layout).forEach(([key, value]) => {
       if (typeof value === "number") {
         root.style.setProperty(`--layout-${key}`, `${value}px`);
+      } else {
+        root.style.setProperty(`--layout-${key}`, String(value));
       }
     });
 

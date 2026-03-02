@@ -9,7 +9,7 @@
 
   padding: var(--layout-cardPadding);
 
-  border: 1px solid var(--color-borderSubtle);
+  border: var(--layout-cardBorderWidth) solid var(--color-borderSubtle);
 
   box-sizing: border-box;
 
