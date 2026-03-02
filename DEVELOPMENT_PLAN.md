@@ -362,9 +362,9 @@ Strict pass before final:
 
 ## Performance and Cache
 
-* [ ] Currencies query is cached for 1 hour
-* [ ] Repeating same conversion within cache window does not refetch
-* [ ] Conversion is disabled until valid inputs are present
+* [x] Currencies query is cached for 1 hour
+* [x] Repeating same conversion within cache window does not refetch
+* [x] Conversion is disabled until valid inputs are present
 
 ## UI Parity and Layout Stability
 
