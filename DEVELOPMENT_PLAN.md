@@ -375,11 +375,11 @@ Strict pass before final:
 
 ## Accessibility
 
-* [ ] Amount and currency controls have associated labels
-* [ ] Focus state is clearly visible for keyboard navigation
-* [ ] Dropdowns are keyboard navigable
-* [ ] Meta updates are announced politely (aria-live)
-* [ ] Error message is announced as alert role
+* [x] Amount and currency controls have associated labels
+* [x] Focus state is clearly visible for keyboard navigation
+* [x] Dropdowns are keyboard navigable
+* [x] Meta updates are announced politely (aria-live)
+* [x] Error message is announced as alert role
 
 ---
 

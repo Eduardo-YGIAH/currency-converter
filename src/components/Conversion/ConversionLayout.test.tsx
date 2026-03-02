@@ -329,3 +329,77 @@ describe("ConversionLayout UI parity and layout stability", () => {
     expect(toSelect.selectedOptions[0].textContent).not.toContain("...");
   });
 });
+
+describe("ConversionLayout accessibility", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    setupQueries();
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("associates labels with amount inputs and currency selects", () => {
+    render(<ConversionLayout />);
+
+    expect(screen.getByLabelText("Amount in Pound sterling")).toBeInTheDocument();
+    expect(screen.getByLabelText("Converted amount in Euro")).toBeInTheDocument();
+    expect(screen.getByLabelText(text.fromCurrencyLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(text.toCurrencyLabel)).toBeInTheDocument();
+  });
+
+  it("supports keyboard focus navigation across controls", async () => {
+    const user = userEvent.setup();
+    render(<ConversionLayout />);
+
+    await user.tab();
+    expect(screen.getAllByRole("textbox")[0]).toHaveFocus();
+
+    await user.tab();
+    expect(screen.getAllByRole("combobox")[0]).toHaveFocus();
+
+    await user.tab();
+    expect(screen.getAllByRole("textbox")[1]).toHaveFocus();
+
+    await user.tab();
+    expect(screen.getAllByRole("combobox")[1]).toHaveFocus();
+  });
+
+  it("keeps currency dropdowns keyboard-focusable native controls", async () => {
+    const user = userEvent.setup();
+    render(<ConversionLayout />);
+
+    await user.tab();
+    await user.tab();
+    const fromSelect = screen.getAllByRole("combobox")[0];
+    expect(fromSelect).toHaveFocus();
+    expect(fromSelect).toHaveAccessibleName(text.fromCurrencyLabel);
+    expect(fromSelect).not.toBeDisabled();
+  });
+
+  it("announces meta updates politely through aria-live", () => {
+    render(<ConversionLayout />);
+    const meta = screen.getByText(/Disclaimer/);
+
+    expect(meta).toHaveAttribute("aria-live", "polite");
+  });
+
+  it("announces errors with alert role", () => {
+    mockedUseCurrenciesQuery.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      dataUpdatedAt: 0,
+    } as never);
+    mockedUseConversionQuery.mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: false,
+      dataUpdatedAt: 0,
+    } as never);
+
+    render(<ConversionLayout />);
+    expect(screen.getByRole("alert")).toHaveTextContent(text.ratesFetchErrorLabel);
+  });
+});
