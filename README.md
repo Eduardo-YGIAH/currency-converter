@@ -46,6 +46,21 @@ A Google-style currency converter built with React + TypeScript, backed by live 
 - Development plan is completed and tracked in `DEVELOPMENT_PLAN.md`.
 - Implemented phases include responsive strategy, API integration, interaction/accessibility, performance tuning, and testing coverage.
 
+## Screenshot
+
+![Currency Converter (mobile)](docs/images/converter-mobile.png)
+
+## Chevron Note (Native Select)
+
+The dropdown chevrons are intentionally browser-native and may not look identical to Google in every environment.
+
+This project keeps native `<select>` controls by design because they provide:
+
+- Better accessibility defaults (keyboard support, screen reader semantics, focus behavior)
+- Better mobile UX (platform-native pickers on iOS/Android)
+- Lower implementation complexity and maintenance cost
+- Fewer cross-browser bugs versus fully custom select widgets
+
 ## Run Locally
 
 Set your CurrencyBeacon token in `.env.local`:
